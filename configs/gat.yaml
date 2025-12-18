@@ -1,0 +1,45 @@
+# Configuration for Graph Attention Network (GAT)
+
+model:
+  name: "gat"
+  hidden_dim: 64
+  num_layers: 2
+  dropout: 0.5
+  activation: "relu"
+  pooling: "attention"  # Use attention pooling for GAT
+  use_residual: true
+  use_batch_norm: true
+  num_heads: 4  # GAT-specific parameter
+
+data:
+  dataset_name: "synthetic_sentiment"
+  max_sentence_length: 50
+  min_sentence_length: 3
+  word_embedding_dim: 300
+  dependency_types: ["nsubj", "dobj", "amod", "advmod"]
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  random_seed: 42
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  num_epochs: 100
+  early_stopping_patience: 10
+  gradient_clip_norm: 1.0
+  scheduler: "cosine"
+  warmup_epochs: 5
+
+experiment:
+  project_name: "gnn-nlp-sentiment"
+  experiment_name: "dependency-gat"
+  device: "auto"
+  deterministic: true
+  log_level: "INFO"
+  save_checkpoints: true
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
+  use_wandb: false
+  wandb_project: "gnn-nlp"
